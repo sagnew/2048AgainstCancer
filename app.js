@@ -2,8 +2,14 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     app = express();
+
 app.use(express.logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Set up ejs for rendering
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
 
 app.get('/', function(req, res){
     console.log('req to home');
@@ -13,7 +19,7 @@ app.get('/', function(req, res){
 app.get('/game', function(req, res){
     var accessToken = req.query.access_token;
     console.log('end point reached');
-    res.sendfile(__dirname + "/views/index.html");
+    res.render(__dirname + "/views/index.html", {"accessToken": accessToken});
 });
 
 app.listen(1337);
