@@ -1,0 +1,16 @@
+{
+    "name": "2048AgainstCancer",
+    "version": "0.0.0",
+    "description": "A 2048 spinoff that donates one cent for each keypress to my friend with brain cancer.",
+    "main": "app.js",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/sagnew/2048AgainstCancer.git"
+    },
+    "dependencies": {
+        "express": "*",
+    },
+    "author": "Sam Agnew and Faiq Raza",
+    "license": "MIT",
+    "readmeFilename": "README.md"
+}
