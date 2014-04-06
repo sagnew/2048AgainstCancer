@@ -23,7 +23,7 @@ app.get('/game', function(req, res){
     res.render(__dirname + "/views/index.html", {"accessToken": accessToken});
 });
 
-app.get('/pay', function (req, res){
+app.post('/pay', function (req, res){
     var url = "https://api.venmo.com/v1/payments";
     request({method:"POST", url: url, json: req.data}, function(err, resp, body){
         if (!err){

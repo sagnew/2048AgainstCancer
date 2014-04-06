@@ -12,12 +12,9 @@
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+
 </head>
 <body>
-  <script>
-    var accessToken = "<%=accessToken%>";
-    alert(accessToken);
-  </script>
   <div class="container">
     <div class="heading">
       <h1 class="title">2048</h1>
@@ -86,6 +83,8 @@
     </p>
   </div>
 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="/js/cancer.js"></script>
   <script src="/js/bind_polyfill.js"></script>
   <script src="/js/classlist_polyfill.js"></script>
   <script src="/js/animframe_polyfill.js"></script>
