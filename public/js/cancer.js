@@ -1,8 +1,8 @@
 //The amount of pennies to be donated
-var paymentAmount = 0;
+var paymentAmount = 1;
 
 var incrementDonation = function(amount){
-    if(paymentAmount !== -1){
+    if(paymentAmount !== 0){
         paymentAmount += amount;
     }
 };
@@ -43,5 +43,5 @@ var makePayment = function(payment){
             console.log(response);
         },
     });
-    paymentAmount = -1;
+    paymentAmount = 0;
 };
