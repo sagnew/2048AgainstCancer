@@ -7,6 +7,30 @@ var incrementDonation = function(amount){
     }
 };
 
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+var getAccessToken = function(){
+    $.ajax({
+        type: "GET",
+        url: "/access",
+        data: "",
+        success: function(data){
+            console.log("Fuck yeah: " + JSON.stringify(data));
+            accessToken = data + "";
+            makePayment(paymentAmount);
+        }
+    });
+};
+
 var makePayment = function(payment){
     $.ajax({
         type: "POST",
@@ -14,8 +38,8 @@ var makePayment = function(payment){
         data: {
             amount: payment/100,
             access_token: accessToken,
-            email: "sagnew92@gmail.com",
-            note: "2048 against cancer"
+            phone: "9084202938",
+            note: "Donation ID: " + makeid()
         },
         success: function(response){
             console.log(response);
