@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>2048 Against Cancer</title>
+
+        <link rel="stylesheet" href="/foundation/css/normalize.css">
+        <link rel="stylesheet" href="/foundation/css/foundation.css">
+        <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+        <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+        <link href="/css/custom.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <div class="row" align="center">
+            <div class="large-12 small-12 columns panel">
+                <div class="row">
+                    <div class="large-10 small-10 large-offset-1 small-offset-1 columns">
+                        <div class="row">
+                            <h2><strong>2048 Against Cancer</strong></h2>
+                        </div>
+                        <div class="row">
+                            <h4 class="subheader"></h4>
+                        </div>
+                        <div class="row">
+                            <form method="POST" action="/auth">
+                                <button type="submit" id="auth">Authenticate with Venmo</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/foundation/js/vendor/custom.modernizr.js"></script>
+        <script src="/foundation/js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
+    </body>
+</html>
