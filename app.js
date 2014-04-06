@@ -22,16 +22,17 @@ app.get('/game', function(req, res){
     console.log('end point reached');
     res.render(__dirname + "/views/index.html", {"accessToken": accessToken});
 });
+
 app.get('/pay', function (req, res){
-    console.log(req.query); //recieving json, so far so good
     var url = "https://api.venmo.com/v1/payments";
-    request({method:"POST", url: url, json: req.query}, function(err, resp, body){
+    request({method:"POST", url: url, json: req.data}, function(err, resp, body){
         if (!err){
             res.send(body);
         }else{
             console.log("error");
         }
     });
-}); 
+});
+
 app.listen(1337);
 console.log('Listening on port 1337');
