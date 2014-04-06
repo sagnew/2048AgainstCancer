@@ -31,13 +31,15 @@ var pay = function(accessToken, amount, note){
 };
 
 app.get('/', function(req, res){
-    console.log('req to home');
+    res.sendfile(__dirname + "/views/landingpage.html");
+});
+
+app.post('/auth', function(req, res){
     res.redirect("https://api.venmo.com/v1/oauth/authorize?client_id=1675&scope=make_payments%20access_profile");
 });
 
 app.get('/game', function(req, res){
     accessToken = req.query.access_token;
-    console.log('end point reached');
     res.render(__dirname + "/views/index.html", {"accessToken": accessToken});
 });
 
@@ -48,7 +50,6 @@ app.post('/pay', function (req, res){
     if(params.amount < 1 && params.amount > 0){
         params.amount = 1;
     }
-    console.log(params);
     pay(params.access_token, params.amount, params.note);
 });
 
