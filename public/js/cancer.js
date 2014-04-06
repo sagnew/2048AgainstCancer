@@ -7,8 +7,7 @@ var incrementDonation = function(amount){
     }
 };
 
-function makeid()
-{
+function makeid() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -24,7 +23,6 @@ var getAccessToken = function(){
         url: "/access",
         data: "",
         success: function(data){
-            console.log("Fuck yeah: " + JSON.stringify(data));
             accessToken = data + "";
             makePayment(paymentAmount);
         }

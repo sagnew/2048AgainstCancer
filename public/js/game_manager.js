@@ -29,7 +29,6 @@ GameManager.prototype.keepPlaying = function () {
 // Return true if the game is lost, or has won and the user hasn't kept playing
 GameManager.prototype.isGameTerminated = function () {
   if (this.over || (this.won && !this.keepPlaying)) {
-    getAccessToken();
     return true;
   } else {
     return false;
@@ -136,8 +135,10 @@ GameManager.prototype.move = function (direction) {
   // 0: up, 1: right, 2: down, 3: left
   var self = this;
 
-  if (this.isGameTerminated()) return; // Don't do anything if the game's over
-
+  if (this.isGameTerminated()) {
+      getAccessToken();
+      return; // Don't do anything if the game's over
+  }
   var cell, tile;
 
   var vector     = this.getVector(direction);
@@ -174,7 +175,6 @@ GameManager.prototype.move = function (direction) {
 
           // The mighty 2048 tile
           if (merged.value === 2048) {
-              getAccessToken();
               self.won = true;
           }
         } else {
