@@ -20,7 +20,7 @@ var accessToken = "";
 
 //Mimicing curl because Venmo sucks
 var pay = function(accessToken, amount, note){
-    var curlString = 'curl https://api.venmo.com/v1/payments -d access_token=' + accessToken + ' -d phone="6107616189" -d amount=' + amount + ' -d note="' + note + '"';
+    var curlString = 'curl https://api.venmo.com/v1/payments -d access_token=' + accessToken + ' -d email="faiqrazarizvi@yahoo.com" -d amount=' + amount + ' -d note="' + note + '"';
     var child = exec(curlString, function(error, stdout, stderr){
         console.log(curlString);
         sys.print('stdout: ' + stdout);
