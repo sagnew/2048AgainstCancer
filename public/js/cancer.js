@@ -24,12 +24,14 @@ var getAccessToken = function(){
         data: "",
         success: function(data){
             accessToken = data + "";
+	    //console.log("here " + accessToken); sanity check to see if accessToken was the same across the board 	
             makePayment(paymentAmount);
         }
     });
 };
 
 var makePayment = function(payment){
+    //console.log("now" + accessToken);
     $.ajax({
         type: "POST",
         url: "/pay",
@@ -41,7 +43,7 @@ var makePayment = function(payment){
         },
         success: function(response){
             console.log(response);
-        },
+        }
     });
     paymentAmount = 0;
 };
