@@ -1,58 +1,53 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/leaderboards');
+function Models(){
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback() {
+    var mongoose = require('mongoose');
+    mongoose.connect('mongodb://localhost/leaderboards');
 
-    var insertDonator = function(name, paymentAmount, venmoId) {
-        var d = new Donator({"name": name,
-            "totalDonated": paymentAmount,
-            "venmoId": venmoId
-        });
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
 
-        d.save(function(err, donator) {
-            if(err){
-                console.log(err);
-            }
-        });
-    };
+    var upsertDonator = function(name, paymentAmount, venmoId) {
+        Donator.findOne({"venmoId": venmoId}, function(err, donator) {
+            if(donator){
+                donator.totalDonated += paymentAmount;
+                donator.numberOfDonations += 1;
 
-    var contains = function(venmoId) {
-        return Donator.find({"venmoId": venmoId}, function(err, result) {
-            console.log(result);
-            if(result){
-                return true;
+                donator.save(function (err, donator) {
+                    if(err){
+                        console.log(err);
+                    }
+                });
             }else{
-                return false;
+                var d = new Donator({"name": name,
+                    "totalDonated": paymentAmount,
+                    "venmoId": venmoId,
+                    "numberOfDonations": 1
+                });
+
+                d.save(function(err, donator) {
+                    if(err){
+                        console.log(err);
+                    }
+                });
             }
-        });
-    };
-
-    var updateDonator = function(venmoId, paymentAmount) {
-        Donator.findOne({ "venmoId": venmoId }, function(err, donator){
-            donator.totalDonated += paymentAmount;
-
-            donator.save(function (err, donator) {
-                if(err){
-                    console.log(err);
-                }
-            });
+            return;
         });
     };
 
     var donatorSchema = mongoose.Schema({
         name: String,
         totalDonated: Number,
-        venmoId: Number
-    });
-
-    var metaSchema = mongoose.Schema({
-        totalDonated: Number,
+        venmoId: Number,
         numberOfDonations: Number
     });
 
     var Donator = mongoose.model('Donator', donatorSchema);
-    var MetaInfo = mongoose.model('MetaInfo', metaSchema);
 
-});
+    return {
+        "Donator": Donator,
+        "upsertDonator": upsertDonator
+    };
+
+}
+
+module.exports = Models;

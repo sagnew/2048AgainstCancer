@@ -1,6 +1,7 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
+    models = require('./models')(),
     sys = require('sys'),
     exec = require('child_process').exec,
     app = express(),
@@ -15,6 +16,8 @@ app.engine('.html', require('ejs').__express);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 
+models.upsertDonator("start", 1, 0);
+
 //Initialize accessToken globally for later use
 var accessToken = "";
 
@@ -22,11 +25,21 @@ var accessToken = "";
 var pay = function(accessToken, amount, note){
     var curlString = 'curl https://api.venmo.com/v1/payments -d access_token=' + accessToken + ' -d email="tyler.w.93@hotmail.com" -d amount=' + amount + ' -d note="' + note + '"';
     var child = exec(curlString, function(error, stdout, stderr){
-        console.log(curlString);
+        console.log(curlString + "|||||||||||||");
         sys.print('stdout: ' + stdout);
         if(error !== null){
             console.log('Error: ' + error);
         }
+
+        //Update the database
+        /*request("https://api.venmo.com/v1/me?access_token=" + accessToken, function(error, response, body){
+            if(error){
+                console.log(error);
+                return;
+            }
+            //This is giving me really weird errors
+            models.upsertDonator(response.body.data.user.display_name, amount, response.body.data.user.id);
+        });*/
     });
 };
 
