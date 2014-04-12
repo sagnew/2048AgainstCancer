@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>2048 Against Cancer</title>
+
+        <link rel="stylesheet" href="/foundation/css/normalize.css">
+        <link rel="stylesheet" href="/foundation/css/foundation.css">
+        <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+        <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+        <link href="/css/custom.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <div class="row">
+            <% var count = 1 %>
+            <% results.forEach(function(result){ %>
+                <% if(result.venmoId !== 0) { %>
+                <div class="row panel">
+
+                    <div class="large-12">
+                        <h3><b><%= count %>. <%= result.name %></b></h3>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            Amount donated: <h4><%= result.totalDonated %></h4>
+                        </div>
+
+                        <div class="large-6 columns">
+                            Number of donations: <h4><%= result.numberOfDonations%></h4>
+                        </div>
+                    </div>
+
+                </div>
+                <% count += 1 %>
+                <% }}) %>
+        </div>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/foundation/js/vendor/custom.modernizr.js"></script>
+        <script src="/foundation/js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
+    </body>
+</html>
+

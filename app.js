@@ -32,14 +32,20 @@ var pay = function(accessToken, amount, note){
         }
 
         //Update the database
-        /*request("https://api.venmo.com/v1/me?access_token=" + accessToken, function(error, response, body){
+        request("https://api.venmo.com/v1/me?access_token=" + accessToken, function(error, response, body){
             if(error){
                 console.log(error);
                 return;
             }
-            //This is giving me really weird errors
-            models.upsertDonator(response.body.data.user.display_name, amount, response.body.data.user.id);
-        });*/
+            body = JSON.parse(body)
+            for (var key in body) {
+                if (body.hasOwnProperty(key)) {
+                    console.log(key + " -> " + body[key]);
+                }
+            }
+
+            models.upsertDonator(body.data.user.display_name, amount, body.data.user.id);
+        });
     });
 };
 
@@ -68,6 +74,13 @@ app.post('/pay', function (req, res){
 
 app.get("/access", function(req, res){
     res.send(accessToken);
+});
+
+app.get("/leaderboards", function(req, res) {
+    models.Donator.find({}).sort({"totalDonated": -1}).exec(function(error, results) {
+        console.log(results);
+        res.render(__dirname + "/views/leaderboards.html", {"results": results});
+    });
 });
 
 app.listen(1337);
