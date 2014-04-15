@@ -78,8 +78,16 @@ app.get("/access", function(req, res){
 
 app.get("/leaderboards", function(req, res) {
     models.Donator.find({}).sort({"totalDonated": -1}).exec(function(error, results) {
-        console.log(results);
-        res.render(__dirname + "/views/leaderboards.html", {"results": results});
+        var total = 0;
+
+        results.forEach(function (donator) {
+            if(donator.name !== "start"){
+                total += donator.totalDonated;
+            }
+        });
+
+        res.render(__dirname + "/views/leaderboards.html", {"results": results, "total": total});
+
     });
 });
 
