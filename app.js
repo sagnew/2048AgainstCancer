@@ -72,10 +72,6 @@ app.post('/pay', function (req, res){
     pay(params.access_token, params.amount, params.note);
 });
 
-app.get("/access", function(req, res){
-    res.send(accessToken);
-});
-
 app.get("/leaderboards", function(req, res) {
     models.Donator.find({}).sort({"totalDonated": -1}).exec(function(error, results) {
         var total = 0;
